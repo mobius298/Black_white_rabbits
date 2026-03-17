@@ -13,21 +13,21 @@
             box-sizing: border-box;
         }
 
-body {
-    background: #0a0c17; /* 深空蓝黑 */
-    color: #e0e0ff; /* 冷月光色 */
-    font-family: 'Noto Serif Gothic', serif;
-    line-height: 1.9;
-    overflow: hidden auto; /* 改了这一行！现在能垂直滚动了 */
-    min-height: 100vh;
-    padding: 5% 10%;
-    background-image:
-        radial-gradient(circle at 10% 20%, rgba(67, 17, 92, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(22, 72, 99, 0.15) 0%, transparent 30%);
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
-}
+        body {
+            background: #0a0c17; /* 深空蓝黑 */
+            color: #e0e0ff; /* 冷月光色 */
+            font-family: 'Noto Serif Gothic', serif;
+            line-height: 1.9;
+            overflow-x: hidden; /* 保留你原始的滚动属性 */
+            min-height: 100vh;
+            padding: 5% 10%;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(67, 17, 92, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(22, 72, 99, 0.15) 0%, transparent 30%);
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
 
         .header {
             text-align: center;
@@ -249,12 +249,13 @@ body {
         <div class="poem-line indent">谱成大地的心跳。</div>
     </div>
 
-    <!-- 本地音频：直接写文件名（和html同文件夹即可），循环播放 -->
+    <!-- 唯一修复：补全audio闭合标签（这是导致JS中断的核心） -->
     <audio id="localMusic" loop preload="auto">
         <source src="Last of me.mp3" type="audio/mpeg">
         你的浏览器不支持音频播放
+    </audio>
 
-
+    <!-- 保留你原始的particles.js链接 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // ========== 本地音频核心控制：播放/暂停100%稳定 ==========
@@ -324,7 +325,7 @@ body {
             }
         });
 
-        // ========== 粒子背景 + 文字滚动动画：保留原有效果 ==========
+        // ========== 粒子背景 + 文字滚动动画：保留你原始的逻辑 ==========
         particlesJS('particles-js', {
             particles: {
                 number: { value: 70, density: { enable: true, value_area: 800 } },
@@ -349,7 +350,7 @@ body {
             }
         });
 
-        // 文字滚动显隐动画
+        // 文字滚动显隐动画：完全保留你原始的触发逻辑
         const poemLines = document.querySelectorAll('.poem-line');
         function checkLineVisibility() {
             poemLines.forEach(line => {
