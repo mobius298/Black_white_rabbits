@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>黑兔与白兔的残章｜明日方舟同人</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Serif+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+body {
+    background: #0a0c17; /* 深空蓝黑 */
+    color: #e0e0ff; /* 冷月光色 */
+    font-family: 'Noto Serif Gothic', serif;
+    line-height: 1.9;
+    overflow: hidden auto; /* 改了这一行！现在能垂直滚动了 */
+    min-height: 100vh;
+    padding: 5% 10%;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(67, 17, 92, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(22, 72, 99, 0.15) 0%, transparent 30%);
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 2s 0.5s forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'ZCOOL KuaiLe', sans-serif;
+            font-size: 4.2rem;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(128, 0, 128, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #a0a0d0;
+            border-top: 1px solid #3a3a6a;
+            padding-top: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            letter-spacing: 2px;
+        }
+
+        /* 图片容器：相对定位，按钮绝对居中 */
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin: 0 auto 4rem;
+        }
+
+        /* 核心图片样式 */
+        .core-image {
+            max-width: 300px;
+            height: auto;
+            display: block;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fadeIn 2s 1s forwards, pulse 4s infinite;
+            box-shadow: 0 0 30px rgba(173, 0, 255, 0.5);
+            border: 2px solid rgba(106, 123, 156, 0.5);
+        }
+
+        /* 音乐按钮：居中+霜星冷冽风格，贴合明日方舟 */
+        .music-control {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(60, 50, 87, 0.7);
+            border: 2px solid rgba(206, 206, 255, 0.8);
+            color: #e0e0ff;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(130, 100, 200, 0.6);
+            opacity: 0;
+            animation: fadeIn 2s 1.5s forwards;
+            transition: all 0.3s ease;
+            z-index: 3;
+            outline: none;
+            padding: 0;
+        }
+
+        .music-control:hover {
+            background: rgba(80, 60, 117, 0.9);
+            border-color: #ffffff;
+            box-shadow: 0 0 30px rgba(173, 150, 255, 0.9);
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .poem-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding-bottom: 8rem;
+            font-size: 1.6rem;
+        }
+
+        .poem-line {
+            margin: 2.2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s, transform 1.2s;
+        }
+
+        .poem-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .indent {
+            padding-left: 3rem;
+        }
+
+        .parentheses {
+            color: #6a7b9c;
+            font-style: italic;
+            font-size: 1.4rem;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes heartbeat {
+            0% { opacity: 0.4; transform: scale(0.95); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+            100% { opacity: 0.4; transform: scale(0.95); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(173, 0, 255, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(173, 0, 255, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(173, 0, 255, 0.5); }
+        }
+
+        .heartbeat {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(173, 0, 255, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: heartbeat 3s infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* 响应式适配：手机端自动缩小 */
+        @media (max-width: 768px) {
+            body { padding: 15% 5%; }
+            h1 { font-size: 3rem; }
+            h2 { font-size: 1.4rem; }
+            .core-image { max-width: 200px; }
+            .music-control {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            .poem-container {
+                font-size: 1.3rem;
+                padding-bottom: 5rem;
+            }
+            .indent { padding-left: 2rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="heartbeat"></div>
+
+    <div class="header">
+        <h1>黑兔与白兔的残章</h1>
+        <h2>——致泰拉大地的无名者</h2>
+        <div class="image-container">
+            <img src="https://mms1.baidu.com/it/u=3869370690,967574803&fm=253&app=138&f=JPEG?w=456&h=456"
+                 alt="黑兔与白兔的意象图"
+                 class="core-image">
+            <button class="music-control" id="musicBtn">▶</button>
+        </div>
+    </div>
+
+    <div class="poem-container">
+        <div class="poem-line">黑兔蜷在源石丛生的裂谷，</div>
+        <div class="poem-line">它的眼睛盛满冻土的颜色。</div>
+        <div class="poem-line indent">人们说：那是矿石病的夜晚，</div>
+        <div class="poem-line indent">是大地被天灾犁过时，</div>
+        <div class="poem-line indent">未冷却的灰烬在瞳孔里沉降。</div>
+
+        <div class="poem-line">白兔跃过废弃的移动城邦，</div>
+        <div class="poem-line">脚印在铁锈上绽出霜花。</div>
+        <div class="poem-line indent">它驮着半袋发霉的粮食，</div>
+        <div class="poem-line indent">像驮着整片荒原的春天——</div>
+        <div class="poem-line indent">可雪还在下，掩埋了最后一株三叶草。</div>
+
+        <div class="poem-line">黑兔的耳朵听见：</div>
+        <div class="poem-line indent">铳械在哭墙下卡壳，</div>
+        <div class="poem-line indent">感染者的血渗进下水道，</div>
+        <div class="poem-line indent">变成源石虫的巢穴。</div>
+
+        <div class="poem-line">白兔的绒毛拂过：</div>
+        <div class="poem-line indent">孩子用绷带包扎玩偶的断肢，</div>
+        <div class="poem-line indent">老矿工把至纯源石攥在手心，</div>
+        <div class="poem-line indent">说这里面有星星的遗骸。</div>
+
+        <div class="poem-line parentheses">（黑兔在暗处磨牙）</div>
+        <div class="poem-line parentheses">（白兔在崖边啃食月光）</div>
+
+        <div class="poem-line">直到某天它们相遇于焚风之中——</div>
+        <div class="poem-line indent">黑兔咬碎枷锁的投影，</div>
+        <div class="poem-line indent">白兔抖落毛尖的冰棱，</div>
+        <div class="poem-line indent">一同奔向钢铁巨兽的腹腔：</div>
+        <div class="poem-line indent">那艘切开阴云的方舟，</div>
+        <div class="poem-line indent">正把引擎的轰鸣，</div>
+        <div class="poem-line indent">谱成大地的心跳。</div>
+    </div>
+
+    <!-- 本地音频：直接写文件名（和html同文件夹即可），循环播放 -->
+    <audio id="localMusic" loop preload="auto">
+        <source src="Last of me.mp3" type="audio/mpeg">
+        你的浏览器不支持音频播放
+
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // ========== 本地音频核心控制：播放/暂停100%稳定 ==========
+        const audio = document.getElementById('localMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        // 监听音频原生事件，绝对同步状态（彻底解决暂停失效）
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            musicBtn.innerText = "⏸";
+        });
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            musicBtn.innerText = "▶";
+        });
+        // 监听音频结束，自动循环（兜底）
+        audio.addEventListener('ended', () => {
+            audio.play();
+        });
+
+        // 播放/暂停切换按钮
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                // 激活音频上下文，解决浏览器所有播放限制
+                const ac = new (window.AudioContext || window.webkitAudioContext)();
+                ac.resume();
+                audio.play();
+            }
+        });
+
+        // ========== 原有点击音效：保留，与背景音乐无冲突 ==========
+        let clickAudioContext, clickSoundBuffer;
+        const CLICK_SOUND_URL = 'https://assets.mixkit.co/sfx/preview/mixkit-soft-click-1113.mp3';
+
+        // 初始化点击音效
+        function initClickSound() {
+            if (!clickAudioContext) {
+                clickAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                fetch(CLICK_SOUND_URL)
+                    .then(res => res.arrayBuffer())
+                    .then(buf => clickAudioContext.decodeAudioData(buf))
+                    .then(data => clickSoundBuffer = data)
+                    .catch(err => console.log("点击音效加载失败：", err));
+            }
+        }
+
+        // 播放点击音效
+        function playClickSound() {
+            if (!clickAudioContext || !clickSoundBuffer) return;
+            const source = clickAudioContext.createBufferSource();
+            source.buffer = clickSoundBuffer;
+            const gainNode = clickAudioContext.createGain();
+            gainNode.gain.value = 0.4; // 音量适中，不突兀
+            source.connect(gainNode);
+            gainNode.connect(clickAudioContext.destination);
+            source.start(0);
+        }
+
+        // 页面点击触发音效（排除音乐按钮，避免冲突）
+        document.body.addEventListener('click', (e) => {
+            if (e.target.id !== 'musicBtn') {
+                initClickSound();
+                playClickSound();
+            }
+        });
+
+        // ========== 粒子背景 + 文字滚动动画：保留原有效果 ==========
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 70, density: { enable: true, value_area: 800 } },
+                color: { value: "#6d5b97" },
+                shape: { type: "circle" },
+                opacity: { value: 0.3, random: true },
+                size: { value: 3, random: true },
+                move: {
+                    enable: true,
+                    speed: 0.5,
+                    direction: "none",
+                    random: true,
+                    out_mode: "out"
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                }
+            }
+        });
+
+        // 文字滚动显隐动画
+        const poemLines = document.querySelectorAll('.poem-line');
+        function checkLineVisibility() {
+            poemLines.forEach(line => {
+                const rect = line.getBoundingClientRect();
+                if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                    line.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('load', () => setTimeout(checkLineVisibility, 100));
+        window.addEventListener('scroll', checkLineVisibility);
+        window.addEventListener('resize', checkLineVisibility);
+    </script>
+</body>
+</html>
