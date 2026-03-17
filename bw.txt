@@ -13,21 +13,21 @@
             box-sizing: border-box;
         }
 
-        body {
-            background: #0a0c17; /* 深空蓝黑 */
-            color: #e0e0ff; /* 冷月光色 */
-            font-family: 'Noto Serif Gothic', serif;
-            line-height: 1.9;
-            overflow-x: hidden;
-            min-height: 100vh;
-            padding: 5% 10%;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(67, 17, 92, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(22, 72, 99, 0.15) 0%, transparent 30%);
-            position: relative;
-            z-index: 1;
-            cursor: pointer;
-        }
+body {
+    background: #0a0c17; /* 深空蓝黑 */
+    color: #e0e0ff; /* 冷月光色 */
+    font-family: 'Noto Serif Gothic', serif;
+    line-height: 1.9;
+    overflow: hidden auto; /* 改了这一行！现在能垂直滚动了 */
+    min-height: 100vh;
+    padding: 5% 10%;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(67, 17, 92, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(22, 72, 99, 0.15) 0%, transparent 30%);
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
 
         .header {
             text-align: center;
