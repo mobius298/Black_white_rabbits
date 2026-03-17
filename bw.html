@@ -99,26 +99,23 @@
             animation: fadeIn 2s 1.5s forwards;
             transition: all 0.3s ease;
             z-index: 3;
-            outline: none; /* 保留电脑端的隐藏边框 */
+            outline: none !important; /* 电脑端去掉边框 */
             padding: 0;
-            -webkit-tap-highlight-color: transparent; /* 关键：消除手机点击时的背景高亮 */
+            -webkit-tap-highlight-color: transparent; /* 消除点击高亮 */
         }
 
-        .music-control:hover {
-            background: rgba(80, 60, 117, 0.9);
-            border-color: #ffffff;
-            box-shadow: 0 0 30px rgba(173, 150, 255, 0.9);
-            transform: translate(-50%, -50%) scale(1.08);
-        }
-
-        /* 关键修复：强制压制手机端黄色焦点框（优先级最高） */
+        /* 核心修复：强制压制手机/浏览器的黄色焦点框（最高优先级） */
         .music-control:focus {
             outline: none !important; /* 强制去掉 outline */
-            box-shadow: 0 0 20px rgba(130, 100, 200, 0.6); /* 保留自定义的发光效果，替代黄色框 */
+            box-shadow: 0 0 20px rgba(130, 100, 200, 0.6) !important; /* 保留你的发光效果 */
             border-color: rgba(206, 206, 255, 0.8) !important;
+            color: #e0e0ff !important;
         }
 
-        /* 额外针对 WebKit 内核（手机浏览器主流）的终极屏蔽 */
+        /* 针对 WebKit 内核（微信浏览器、Safari、手机 Chrome）的终极屏蔽 */
+        *:focus-visible {
+            outline: none !important;
+        }
         .music-control::-webkit-focus-ring-color {
             outline: none !important;
         }
