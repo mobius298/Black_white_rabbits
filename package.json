@@ -1,0 +1,24 @@
+{
+    "app_name": "Black_white_ rabbits",
+    "main": "bw.html",
+    "name": "Black_white_ rabbits",
+    "webexe_settings": {
+        "download_dir": "",
+        "force_download": false,
+        "nw_compression_level": 0,
+        "sdk_build": false,
+        "uncompressed_folder": false,
+        "windows-x32": false,
+        "windows-x64": true
+    },
+    "webkit": {},
+    "window": {
+        "frame": true,
+        "id": "Black_white_ rabbits",
+        "resizable": true,
+        "show": true,
+        "show_in_taskbar": true,
+        "title": "Black_white_ rabbits",
+        "visible": true
+    }
+}
