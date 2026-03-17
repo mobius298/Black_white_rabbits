@@ -27,6 +27,7 @@
             position: relative;
             z-index: 1;
             cursor: pointer;
+            font-size: 16px; /* 基础字体放大（原无此设置，默认14px） */
         }
 
         .header {
@@ -40,33 +41,33 @@
 
         h1 {
             font-family: 'ZCOOL KuaiLe', sans-serif;
-            font-size: 4.2rem;
-            letter-spacing: 5px;
+            font-size: 5rem; /* 标题放大：4.2rem → 5rem */
+            letter-spacing: 6px; /* 字间距略放大，更美观 */
             text-shadow: 0 0 20px rgba(128, 0, 128, 0.8);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem; /* 增加间距，避免拥挤 */
         }
 
         h2 {
-            font-size: 1.8rem;
+            font-size: 2.2rem; /* 副标题放大：1.8rem → 2.2rem */
             font-weight: 400;
             color: #a0a0d0;
             border-top: 1px solid #3a3a6a;
-            padding-top: 1.2rem;
-            max-width: 600px;
+            padding-top: 1.5rem; /* 增加内边距 */
+            max-width: 700px; /* 加宽容器，适配大字体 */
             margin: 0 auto;
-            letter-spacing: 2px;
+            letter-spacing: 3px; /* 字间距略放大 */
         }
 
         /* 图片容器：相对定位，按钮绝对居中 */
         .image-container {
             position: relative;
             display: inline-block;
-            margin: 0 auto 4rem;
+            margin: 0 auto 5rem; /* 增加底部间距，适配大字体 */
         }
 
         /* 核心图片样式 */
         .core-image {
-            max-width: 300px;
+            max-width: 320px; /* 图片略放大，和字体匹配 */
             height: auto;
             display: block;
             border-radius: 50%;
@@ -98,8 +99,9 @@
             animation: fadeIn 2s 1.5s forwards;
             transition: all 0.3s ease;
             z-index: 3;
-            outline: none;
+            outline: none; /* 保留电脑端的隐藏边框 */
             padding: 0;
+            -webkit-tap-highlight-color: transparent; /* 关键：消除手机点击时的背景高亮 */
         }
 
         .music-control:hover {
@@ -109,17 +111,30 @@
             transform: translate(-50%, -50%) scale(1.08);
         }
 
+        /* 关键修复：强制压制手机端黄色焦点框（优先级最高） */
+        .music-control:focus {
+            outline: none !important; /* 强制去掉 outline */
+            box-shadow: 0 0 20px rgba(130, 100, 200, 0.6); /* 保留自定义的发光效果，替代黄色框 */
+            border-color: rgba(206, 206, 255, 0.8) !important;
+        }
+
+        /* 额外针对 WebKit 内核（手机浏览器主流）的终极屏蔽 */
+        .music-control::-webkit-focus-ring-color {
+            outline: none !important;
+        }
+
         .poem-container {
-            max-width: 800px;
+            max-width: 850px; /* 诗歌容器加宽，适配大字体 */
             margin: 0 auto;
             position: relative;
             z-index: 2;
             padding-bottom: 8rem;
-            font-size: 1.6rem;
+            font-size: 2rem; /* 诗歌字体核心放大：1.6rem → 2rem */
+            line-height: 2.2; /* 行高略增加，提升可读性 */
         }
 
         .poem-line {
-            margin: 2.2rem 0;
+            margin: 2.5rem 0; /* 诗歌行间距增加，避免拥挤 */
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 1.2s, transform 1.2s;
@@ -131,13 +146,13 @@
         }
 
         .indent {
-            padding-left: 3rem;
+            padding-left: 4rem; /* 缩进加大，适配大字体 */
         }
 
         .parentheses {
             color: #6a7b9c;
             font-style: italic;
-            font-size: 1.4rem;
+            font-size: 1.8rem; /* 括号文字放大：1.4rem → 1.8rem */
         }
 
         #particles-js {
@@ -175,22 +190,33 @@
             pointer-events: none;
         }
 
-        /* 响应式适配：手机端自动缩小 */
+        /* 响应式适配：手机端优化（放大后仍适配） */
         @media (max-width: 768px) {
-            body { padding: 15% 5%; }
-            h1 { font-size: 3rem; }
-            h2 { font-size: 1.4rem; }
-            .core-image { max-width: 200px; }
+            body {
+                padding: 15% 5%;
+                font-size: 14px; /* 手机基础字体略调，保证适配 */
+            }
+            h1 { font-size: 3.8rem; } /* 手机标题适配 */
+            h2 { font-size: 1.8rem; } /* 手机副标题适配 */
+            .core-image { max-width: 250px; } /* 手机图片适配 */
             .music-control {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
             }
             .poem-container {
-                font-size: 1.3rem;
-                padding-bottom: 5rem;
+                font-size: 1.8rem; /* 手机诗歌字体适配（仍比原大） */
+                line-height: 2.1;
+                max-width: 90%; /* 手机占满宽度，提升可读性 */
             }
-            .indent { padding-left: 2rem; }
+            .indent { padding-left: 2.5rem; } /* 手机缩进适配 */
+            .parentheses { font-size: 1.6rem; } /* 手机括号文字适配 */
+        }
+
+        /* 额外适配：小屏手机（如iPhone SE） */
+        @media (max-width: 480px) {
+            h1 { font-size: 3.2rem; }
+            .poem-container { font-size: 1.6rem; }
         }
 
         @keyframes fadeIn {
@@ -253,7 +279,7 @@
     <audio id="localMusic" loop preload="auto">
         <source src="Last of me.mp3" type="audio/mpeg">
         你的浏览器不支持音频播放
-    </audio>
+
 
     <!-- 保留你原始的particles.js链接 -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
